@@ -16,18 +16,24 @@ public class DeepestPitAnswer
             if (points[c] > firstHigh && !isInPit)
             {
                 firstHigh = points[c];
+                low = points[c];
             }
             else if (points[c] < low)
             {
                 low = points[c];
+                secondHigh = points[c];
                 isInPit = true;
             }
             else if (points[c] > secondHigh && isInPit)
             {
                 secondHigh = points[c];
-
                 var pit = new Tuple<int, int, int>(firstHigh, low, secondHigh);
                 pits.Add(pit);
+
+                if (c+1 < points.Length && points[c+1] < points[c])
+                {
+                    isInPit = false;
+                }
             }
         }
 
