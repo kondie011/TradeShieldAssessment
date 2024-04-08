@@ -8,12 +8,11 @@ public class DeepestPitAnswer
         var firstHigh = points[0];
         var low = 0;
         var secondHigh = 0;
-        var deepestPit = 0;
         var isInPit = false;
 
         for (var c=1; c<points.Length; c++)
         {
-            if (points[c] > firstHigh && !isInPit)
+            if (points[c] > firstHigh && !isInPit && points[c] > 0)
             {
                 firstHigh = points[c];
                 low = points[c];
@@ -30,7 +29,7 @@ public class DeepestPitAnswer
                 var pit = new Tuple<int, int, int>(firstHigh, low, secondHigh);
                 pits.Add(pit);
 
-                if (c+1 < points.Length && points[c+1] < points[c])
+                if (c+1 < points.Length && points[c+1] < points[c] && points[c] > 0)
                 {
                     isInPit = false;
                     firstHigh = points[c];
@@ -38,6 +37,12 @@ public class DeepestPitAnswer
             }
         }
 
+        if (pits.Count == 0)
+        {
+            return -1;
+        }
+
+        var deepestPit = Math.Min(pits[0].Item1 - pits[0].Item2, pits[0].Item3 - pits[0].Item2);
         foreach (var pit in pits)
         {
             var minDiff = Math.Min(pit.Item1-pit.Item2, pit.Item3-pit.Item2);
@@ -47,6 +52,7 @@ public class DeepestPitAnswer
                 deepestPit = minDiff;
             }
         }
-         return deepestPit;
+        
+        return deepestPit;
     }
 }
