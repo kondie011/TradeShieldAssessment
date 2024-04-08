@@ -11,7 +11,7 @@ public class LongestSentanceAnswer
 
         foreach ( var sentense in sentenses )
         {
-            var words = sentense.Split(" ");
+            var words = sentense.Split(" ", StringSplitOptions.RemoveEmptyEntries);
             var len = words.Length;
 
             if (len > longestSentenseLen)
