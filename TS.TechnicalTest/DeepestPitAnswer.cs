@@ -33,6 +33,7 @@ public class DeepestPitAnswer
                 if (c+1 < points.Length && points[c+1] < points[c])
                 {
                     isInPit = false;
+                    firstHigh = points[c];
                 }
             }
         }
