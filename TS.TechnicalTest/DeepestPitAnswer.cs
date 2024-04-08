@@ -5,7 +5,7 @@ public class DeepestPitAnswer
     public static int Solution(int[] points)
     {
         var pits = new List<Tuple<int, int, int>>();
-        var firstHigh = points[0];
+        var firstHigh = 0;
         var low = 0;
         var secondHigh = 0;
         var isInPit = false;
@@ -17,13 +17,21 @@ public class DeepestPitAnswer
                 firstHigh = points[c];
                 low = points[c];
             }
-            else if (points[c] < low)
+            else if (points[c] <= low && firstHigh > 0)
             {
+                if (points[c] == low)
+                {
+                    firstHigh = points[c];
+                    isInPit = false;
+                }
+                else
+                {
+                    secondHigh = points[c];
+                    isInPit = true;
+                }
                 low = points[c];
-                secondHigh = points[c];
-                isInPit = true;
             }
-            else if (points[c] > secondHigh && isInPit)
+            else if (points[c] > secondHigh && isInPit && firstHigh > 0)
             {
                 secondHigh = points[c];
                 var pit = new Tuple<int, int, int>(firstHigh, low, secondHigh);
